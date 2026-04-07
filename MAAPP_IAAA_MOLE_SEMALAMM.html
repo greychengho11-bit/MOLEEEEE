@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Legends: Love Bang Bang</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins', sans-serif;
+}
+
+body{
+background: radial-gradient(circle at top, #0b1a3a, #020617);
+color:white;
+overflow:hidden;
+}
+
+.screen{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+opacity:0;
+pointer-events:none;
+transition:1s;
+}
+
+.screen.active{
+opacity:1;
+pointer-events:auto;
+}
+
+.title{
+font-family:'Orbitron', sans-serif;
+font-size:38px;
+color:#6ec1ff;
+text-shadow:0 0 15px #2ea6ff;
+}
+
+.subtitle{
+opacity:.8;
+margin-top:10px;
+}
+
+button{
+margin-top:25px;
+padding:12px 30px;
+background:linear-gradient(45deg,#1e90ff,#00c3ff);
+border:none;
+border-radius:8px;
+color:white;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 0 15px #00c3ff;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+box-shadow:0 0 25px #00c3ff;
+}
+
+.card{
+background:rgba(0,0,0,0.4);
+padding:20px;
+border-radius:15px;
+margin:10px 0;
+opacity:0;
+transform:translateY(20px);
+animation:fadeUp 1s forwards;
+box-shadow:0 0 15px rgba(0,200,255,.3);
+}
+
+@keyframes fadeUp{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.big{
+font-size:30px;
+font-weight:600;
+color:#7bd3ff;
+text-shadow:0 0 15px #00aeff;
+}
+
+.hearts{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+overflow:hidden;
+}
+
+.heart{
+position:absolute;
+color:#66ccff;
+animation:float 4s linear forwards;
+}
+
+@keyframes float{
+0%{transform:translateY(100vh);opacity:1}
+100%{transform:translateY(-10vh);opacity:0}
+}
+
+.rank{
+font-size:70px;
+animation:glow 2s infinite alternate;
+}
+
+@keyframes glow{
+from{ text-shadow:0 0 10px #00bfff }
+to{ text-shadow:0 0 30px #00e1ff }
+}
+
+.victory{
+font-size:40px;
+color:#7fd6ff;
+text-shadow:0 0 20px #00aeff;
+}
+
+.spamLove{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#00aeff;
+border-radius:50%;
+width:60px;
+height:60px;
+font-size:20px;
+}
+
+.particles{
+position:fixed;
+width:100%;
+height:100%;
+background-image:radial-gradient(white 1px, transparent 1px);
+background-size:30px 30px;
+opacity:0.1;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="particles"></div>
+<div class="hearts" id="hearts"></div>
+
+<audio id="bgm" loop>
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_8d7f8b8fbb.mp3">
+</audio>
+
+<audio id="click">
+<source src="https://cdn.pixabay.com/audio/2022/03/10/audio_c1e9b1cde4.mp3">
+</audio>
+
+<!-- Opening -->
+<div class="screen active" id="s0">
+<div class="title">Mobile Legends: Love Bang Bang 💙</div>
+<div class="subtitle">Player Duo: Jesen & Greynathan</div>
+<button onclick="next(1)">ENTER BATTLE</button>
+</div>
+
+<!-- Page 1 -->
+<div class="screen" id="s1">
+<div class="card">Terima kasih yaa thayangnaa…<br>udah ngajarin aku main dengan sabar 🥺<br>walaupun aku sering salah</div>
+<div class="card" style="animation-delay:.5s">sering panik<br>sering ga liat map…</div>
+<div class="card" style="animation-delay:1s">Tapi kamu tetep nemenin<br>tetep ngajarin<br>dan tetep sayangin aku 💙</div>
+<button onclick="next(2)">NEXT</button>
+</div>
+
+<!-- Page 2 -->
+<div class="screen" id="s2">
+<div class="big">DEFEAT 😭</div>
+<div class="card">Maaf yaaa… aku sering bikin kamu bete karena kita kalah…</div>
+<div class="card">Aku kadang ga liat map terus ada musuh dateng…</div>
+<div class="card">Kadang aku masih noob banget… tapi aku cuma pengen main bareng kamu terus 🥺💙</div>
+<button onclick="next(3)">NEXT</button>
+</div>
+
+<!-- Page 3 -->
+<div class="screen" id="s3">
+<div class="rank">★ RANK UP ★</div>
+<div class="big">Terima kasih sudah sabar ngajarin aku</div>
+<div>Aku mungkin player noob tapi aku serius sayang kamu 💙</div>
+<button onclick="next(4)">NEXT</button>
+</div>
+
+<!-- Page 4 -->
+<div class="screen" id="s4">
+<div class="big">DUO FOREVER</div>
+<div class="card">Lebih seru kalah bareng kamu daripada menang sama orang lain</div>
+<div class="card">Karena kamu bukan cuma partner ML tapi partner hati aku 💙</div>
+<button onclick="next(5)">NEXT</button>
+</div>
+
+<!-- Ending -->
+<div class="screen" id="s5">
+<div class="victory">BEST DUO FOREVER</div>
+<br>
+<div>JESEN ALDY GEOL</div>
+<div>&</div>
+<div>GREYNATHAN CUMILL</div>
+
+<button onclick="love()">LOVE YOU</button>
+<button onclick="next(0)">PLAY AGAIN</button>
+</div>
+
+<button class="spamLove" onclick="spam()">💙</button>
+
+<script>
+
+function next(n){
+document.getElementById("click").play()
+document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"))
+document.getElementById("s"+n).classList.add("active")
+document.getElementById("bgm").play()
+}
+
+function heart(){
+let h=document.createElement("div")
+h.className="heart"
+h.innerHTML="💙"
+h.style.left=Math.random()*100+"%"
+h.style.fontSize=(Math.random()*20+15)+"px"
+document.getElementById("hearts").appendChild(h)
+
+setTimeout(()=>h.remove(),4000)
+}
+
+function spam(){
+for(let i=0;i<10;i++){
+setTimeout(heart,i*100)
+}
+}
+
+function love(){
+for(let i=0;i<40;i++){
+setTimeout(heart,i*50)
+}
+
+setTimeout(()=>{
+alert("Aku sayang kamu 💙\nTerima kasih sudah sabar ngajarin aku main ML")
+},800)
+}
+
+setInterval(heart,1500)
+
+</script>
+
+</body>
+</html>
